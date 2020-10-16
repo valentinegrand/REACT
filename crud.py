@@ -109,11 +109,11 @@ def update_movie(db: Session, movie: schemas.Movie):
     if db_movie is None:
         return None
         # update data from db
-        db_movie.title = movie.title
-        db_movie.year = movie.year
-        db_movie.duration = movie.duration
+    db_movie.title = movie.title
+    db_movie.year = movie.year
+    db_movie.duration = movie.duration
         # validate update in db
-        db.commit()
+    db.commit()
     # return updated object or None if not found
     return db_movie
 
@@ -121,15 +121,15 @@ def update_movie(db: Session, movie: schemas.Movie):
 
 #Supprimer un film dans la bdd
 def delete_movie(db: Session, movie_id: int):
-     db_movie = db.query(models.Movie).filter(models.Movie.id == movie_id).first()
-     if db_movie is None:
-         return None
+    db_movie = db.query(models.Movie).filter(models.Movie.id == movie_id).first()
+    if db_movie is None:
+        return None
          # delete object from ORM
-         db.delete(db_movie)
+    db.delete(db_movie)
          # validate delete in db
-         db.commit()
+    db.commit()
      # return deleted object or None if not found
-     return db_movie
+    return db_movie
 
 
 #----------------------------------------- STARS ---------------------------------------------
@@ -191,15 +191,15 @@ def update_star(db: Session, star: schemas.Star):
 
 # Supprimer une star de la BDD
 def delete_star(db: Session, star_id: int):
-     db_star = db.query(models.Star).filter(models.Star.id == star_id).first()
-     if db_star is None:
-         return None
+    db_star = db.query(models.Star).filter(models.Star.id == star_id).first()
+    if db_star is None:
+        return None
          # delete object from ORM
-         db.delete(db_star)
+        db.delete(db_star)
          # validate delete in db
-         db.commit()
+        db.commit()
      # return deleted object or None if not found
-     return db_star
+    return db_star
 
 
 #----------------------------------------- ASSOCIATION PLAY ---------------------------------------------
@@ -245,6 +245,7 @@ def get_stats_by_movie_director(db: Session, min_count: int):
         .order_by(desc("movie_count")) \
         .all()
 
+# Nombre de films par acteur + année 1er film et année dernier film (avec nb de films supérieur à ...)
 def get_stats_by_movie_actor(db: Session, min_count: int):
     return db.query(models.Star, func.count(models.Movie.id).label("movie_count"),func.min(models.Movie.year).label("first_year_movie"),func.max(models.Movie.year).label("last_year_movie")) \
         .join(models.Movie.actors)        \

@@ -14,6 +14,14 @@ play_association_table = Table('play', Base.metadata,
 )
 
 
+class Star(Base):
+    __tablename__ = "stars"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(length=150), nullable=False)
+    birthdate = Column(Date, nullable=True)
+
+
 class Movie(Base):
     __tablename__ = "movies"
 
@@ -27,9 +35,3 @@ class Movie(Base):
     # Many to many relationship : actors
     actors = relationship('Star', secondary=play_association_table)
 
-class Star(Base):
-    __tablename__ = "stars"
-
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(length=150), nullable=False)
-    birthdate = Column(Date, nullable=True)
